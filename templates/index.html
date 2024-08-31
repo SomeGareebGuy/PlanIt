@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block style %}
+    <style>
+        .bg {
+            /* The image used */
+            background-image: url("static/images/home.png");
+
+            /* Full height */
+            height: 100%;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .fade-in-image { animation: fadeIn 3s; }
+        .container {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: top;
+            flex-direction: column;
+            height: 100vh; /* or any height you need */
+        }
+
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container fade-in-image" style="padding-bottom: 30px;">
+        <div style="font-family: Volkhov; color: #C9E5FF; font-size: 52px;">
+            <p style="margin-bottom: 5px;">The Best Itineraries.</p>
+            <p style="margin-top: 0px;">For You.</p>
+        </div>
+
+        <div style="width: 50%; color: #E5F2FF; padding-bottom: 10px;">
+            <p>Discover budget-friendly travel plans crafted by experienced travelers. Explore how others manage their trips for less,
+            and plan your journey without breaking the bank. Your next adventure starts here, with insights from real experience.</p>
+        </div>
+
+        <button button onclick="window.location.href = '/search';" type="button" class="btn btn-success"
+            style="background-color: #7CFE94; color: black; border-radius: 5px;">Get Started <i class="fas fa-arrow-right"></i></button>
+    </div>
+{% endblock %}

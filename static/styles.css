@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Water';
+    src: url('/static/fonts/waterbrush.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Mulish';
+    src: url('/static/fonts/mulish.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Volkhov';
+    src: url('/static/fonts/volkhov.ttf') format('truetype');
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.black-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Adjust opacity as needed */
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 10px;
+}
