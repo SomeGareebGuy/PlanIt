@@ -51,4 +51,56 @@ def login():
 
     else:
         return render_template("login.html")
+@app.route('/register', methods=["POST", "GET"])
+def register():
+    session.clear()
+
+    if request.method == "POST":
+        if not request.form.get("email"):
+            error="Must provide email"
+            return render_template('register.html', error=error)
+
+        elif not request.form.get("password"):
+            error="Must provide password"
+            return render_template('register.html', error=error)
+
+        elif not request.form.get("username"):
+            error = "Must provide username"
+            return render_template('register.html', error=error)
+
+        elif request.form.get("password") != request.form.get("confirmation"):
+            error="Password must be same as confirm password"
+            return render_template('register.html', error=error)
+
+        rows = db.execute(
+            "SELECT * FROM users WHERE username = ?", request.form.get(
+                "username")
+        )
+
+        if len(rows) != 0:
+            error = "Username already exists."
+            return render_template('register.html', error=error)
+
+        rows = db.execute(
+            "SELECT * FROM users WHERE email = ?", request.form.get(
+                "email")
+        )
+
+        if len(rows) != 0:
+            error="Account with the given email already exists"
+            return render_template('register.html', error=error)
+
+        db.execute(
+            "INSERT INTO users (email, hash, username) VALUES (?, ?, ?)",
+            request.form.get("email"),
+            generate_password_hash(request.form.get("password")),
+            request.form.get("username")
+        )
+
+        return redirect("/")
+
+    else:
+        return render_template('register.html')
+
+
 
