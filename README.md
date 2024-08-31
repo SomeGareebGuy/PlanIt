@@ -1,5 +1,3 @@
 # PlanIt
 
-Creators - Anubhav Dash (@SomeGareebGuy)
-Creators - Ayashkanta Mishra (@SweatshirtSavvy)
-Creators - Jayesh Das(@jdas111)
+Creators - Anubhav Dash (@SomeGareebGuy), Ayashkanta Mishra (@SweatshirtSavvy), Jayesh Das(@jdas111), Biswajeet Swain (@Theathleticstriker7)
