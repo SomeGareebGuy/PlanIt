@@ -4,68 +4,152 @@
     <title>Home</title>
 {% endblock %}
 
+{% block style %}
+    <style>
+        .cards {
+            width: 280px; 
+            height: 300px; 
+            object-fit: cover;
+        }
+
+        .cards:hover {
+            cursor: pointer;
+            filter: brightness(80%);
+        }
+
+        .cardText {
+            font-family: 'Water'; 
+            font-size: 32px;
+        }
+
+        .darkened { 
+            filter: brightness(90%);
+            opacity: 0.5;
+        }
+
+        .page {
+            position: relative;
+        }
+
+
+        .bg{
+            background-image: url("static/images/search.jpg");
+            
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: 110%;
+            background-position: -100px -300px;
+            overflow: hidden;
+        }
+
+        #popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            z-index: 2;
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!--all above is necessary for bootstrap to function in this snippet-->
     
-    <div class="input-group rounded">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-            aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-            <i class="fas fa-search"></i>
-        </span>
+    <div id="popup"> 
+        Text
     </div>
-    
-    <div class="carousel slide" id="slider" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm image-container">
-                            <img src="/static/images/wayanad.png" style="width: 280px; height: auto;">
-                            <div class="black-overlay"></div>
-                            <div style="font-family: 'Water'" class="text-overlay">Wayanad</div>
-                        </div>
-                        <div class="col-sm image-container">
-                            <img src="/static/images/wayanad.png" style="width: 280px; height: auto;">
-                            <div class="black-overlay"></div>
-                            <div style="font-family: 'Water'" class="text-overlay">Wayanad</div>
-                        </div>
-                        <div class="col-sm image-container">
-                            <img src="/static/images/wayanad.png" style="width: 280px; height: auto;">
-                            <div class="black-overlay"></div>
-                            <div style="font-family: 'Water'" class="text-overlay">Wayanad</div>
+
+    <div class="page dark">
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+        </div>
+        
+        <div class="carousel slide" id="slider" data-ride="carousel" style="padding-top: 40px;">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm image-container" onclick="showCard()">
+                                <img src="/static/images/wayanad.jpg" class = "cards">
+                                <div class="text-overlay cardText">Wayanad</div>
+                            </div>
+                            <div class="col-sm image-container">
+                                <img src="/static/images/meghalaya.jpg" class = "cards">
+                                <div class="text-overlay cardText">Meghalaya</div>
+                            </div>
+                            <div class="col-sm image-container">
+                                <img src="/static/images/Ladakh.jpg" class = "cards">
+                                <div class="text-overlay cardText">Ladakh</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="carousel-item" id="slide2">
-                <img src="https://picsum.photos/1000/600/">
-                <div class="carousel-caption">
-                    <h4>Welcome</h4>
-                    <p>Travel! Enjoy!</p>
+        
+                <div class="carousel-item" id="slide2">
+                    <div class="row">
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/banaras.png" class="cards">
+                            <div class="text-overlay cardText">Banaras</div>
+                        </div>
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/jaipur.png" class="cards">
+                            <div class="text-overlay cardText">Jaipur</div>
+                        </div>
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/kolkata.jpg" class="cards">
+                            <div class="text-overlay cardText">Kolkata</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-    
-            <div class="carousel-item" id="slide3">
-                <img src="https://picsum.photos/1000/600/">
-                <div class="carousel-caption">
-                    <h4>Welcome</h4>
-                    <p>Travel! Enjoy!</p>
+        
+                <div class="carousel-item" id="slide3">
+                    <div class="row">
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/Mahabalipuram.jpg" class="cards">
+                            <div class="text-overlay cardText">Mahabalipuram</div>
+                        </div>
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/Goa.webp" class="cards">
+                            <div class="text-overlay cardText">Goa</div>
+                        </div>
+                        <div class="col-sm image-container" onclick="showCard()">
+                            <img src="/static/images/Sikkim.webp" class="cards">
+                            <div class="text-overlay cardText">Sikkim</div>
+                        </div>
+                    </div>
                 </div>
+        
             </div>
-    
+            <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
+
+    <script>
+        function showCard() {
+                document.querySelector('.dark').classList.add('darkened');
+                document.querySelector('.page').classList.add('darkened');
+                document.getElementById('popup').style.display = 'block';
+                document.getElementById('popup').style.opacity = 1;
+            
+
+                document.addEventListener('click', handleClickOutside);
+            }
+    </script>
 {% endblock %}
