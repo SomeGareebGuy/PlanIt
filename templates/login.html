@@ -2,7 +2,34 @@
 
 {% block title %}
     Login
+
 {% endblock %}
+{% block style %}
+    <style>
+        .bg {
+            /* The image used */
+            background-image: url("static/images/login.jpg");
+
+         /* Full height */
+            height: 100%;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .container {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: top;
+            flex-direction: column;
+            height: 100vh; /* or any height you need */
+        }
+
+    </style>        
+{% endblock %}
+
+
 
 {% block main %}
     <form action="/login" method="post">
@@ -22,6 +49,7 @@
         {% else %}
         {% endif %}
     </div>
-    
 {% endblock %}
+    
+
 
