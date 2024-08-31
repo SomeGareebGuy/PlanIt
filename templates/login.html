@@ -12,42 +12,59 @@
 
          /* Full height */
             height: 100%;
+            
+            
 
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: 110%;
+            background-position: -100px -300px;
+            overflow: hidden;
         }
         
         .container {
-            display: flex;
-            align-items: center;
-            padding-top: 20px;
-            justify-content: top;
-            flex-direction: column;
-            height: 100vh; /* or any height you need */
+            justify-content: center;
+            height: 100vh;
         }
 
+        .custom-transparent {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+        }
+
+        .custom-size {
+            padding: 2px 30px; 
+            font-size: 18px;
+        }
     </style>        
 {% endblock %}
 
 
 
 {% block main %}
-    <form action="/login" method="post">
-        <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="email" placeholder="Username/ Email" type="text">
-        </div>
-        <div class="mb-3">
-            <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
+    <div class = "container justify-content-center align-items-center">
+        <div class = "row align-items-center">
+            <div class = "col"> </div>
+            <div class = "col"> </div>
+            <div class = "col">
+                <form action="/login" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" class="form-control mx-auto w-auto custom-transparent" name="email" placeholder="Username/ Email" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto custom-transparent" name="password" placeholder="Password" type="password">
+                    </div>
+                    <button class="btn btn-primary custom-size custom-transparent" type="submit">Log In</button>
+                </form>
 
-    <div>
-        <a href="/register">Register?</a> | <a href="/forgot">Forgot Password?</a>
-        {% if error %}
-        <p style="color: red">{{error}}</p>
-        {% else %}
-        {% endif %}
+                <div style="padding-top:10px">
+                    <a class = "custom-transparent" href="/register">Register?</a> | <a href="/forgot" class="custom-transparent">Forgot Password?</a>
+                    {% if error %}
+                    <p style="color: red">{{error}}</p>
+                    {% else %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
     
