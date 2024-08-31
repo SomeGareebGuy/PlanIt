@@ -34,18 +34,14 @@ def login():
             error = "Must provide password."
             return render_template("login.html", error=error)
 
-        rows = db.execute(
-            "SELECT * FROM users WHERE email = ? OR username = ?", request.form.get(
-                "email"), request.form.get("email")
-        )
+        user = Profile.query.filter((Profile.email == request.form.get("email")) | (
+            Profile.username == request.form.get("email"))).first()
 
-        if len(rows) != 1 or not check_password_hash(
-            rows[0]["hash"], request.form.get("password")
-        ):
+        if not user or not check_password_hash(user.hash_id, request.form.get("password")):
             error = "Incorrect username/password."
             return render_template("login.html", error=error)
-
-        session["user_id"] = rows[0]["id"]
+        
+        session["user_id"] = user.id
 
         return redirect("/")
 
