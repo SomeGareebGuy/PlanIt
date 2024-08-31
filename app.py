@@ -3,6 +3,8 @@ from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 
+from helpers import login_required
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -20,6 +22,9 @@ class Profile(db.Model):
         return f"Name : {self.first_name}, Age: {self.age}"
 
 Session(app)
+
+with app.app_context():
+    db.create_all()
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -47,6 +52,7 @@ def login():
 
     else:
         return render_template("login.html")
+    
 @app.route('/register', methods=["POST", "GET"])
 def register():
     session.clear()
@@ -68,35 +74,55 @@ def register():
             error="Password must be same as confirm password"
             return render_template('register.html', error=error)
 
-        rows = db.execute(
-            "SELECT * FROM users WHERE username = ?", request.form.get(
-                "username")
-        )
+        user = Profile.query.filter_by(
+            username=request.form.get("username")).first()
 
-        if len(rows) != 0:
+        user = Profile.query.filter_by(
+            username=request.form.get("username")).first()
+
+
+        if user:
             error = "Username already exists."
             return render_template('register.html', error=error)
-
-        rows = db.execute(
-            "SELECT * FROM users WHERE email = ?", request.form.get(
-                "email")
-        )
+        
+        rows = Profile.query.filter_by(email=request.form.get("email")).all()
 
         if len(rows) != 0:
             error="Account with the given email already exists"
             return render_template('register.html', error=error)
 
-        db.execute(
-            "INSERT INTO users (email, hash, username) VALUES (?, ?, ?)",
-            request.form.get("email"),
-            generate_password_hash(request.form.get("password")),
-            request.form.get("username")
+        new_user = Profile(
+            email= request.form.get("email"),
+            hash_id = generate_password_hash(request.form.get("password")),
+            username = request.form.get("username")
         )
+
+        db.session.add(new_user)
+        db.session.commit()
 
         return redirect("/")
 
     else:
         return render_template('register.html')
 
+@login_required
+@app.route('/profile', methods=["GET", "POST"])
+def profile():
+    #to see the profile of the person
+    return render_template('profile.html')
 
+@app.route('/search', methods=["GET", "POST"])
+def search():
+    #the search page
+    return render_template('search.html')
+
+@app.route('/')
+def index():
+    #main page
+    return render_template('index.html')
+
+@app.route('/create', methods=["GET", "POST"])
+def create():
+    #for creating iternaries
+    return render_template("create.html")
 

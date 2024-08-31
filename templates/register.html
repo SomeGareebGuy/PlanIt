@@ -7,7 +7,11 @@
 {% block main %}
     <form action="/register" method="post">
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Username" type="text">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Username"
+                type="text">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="email" placeholder="Email" type="text">
         </div>
         <div class="mb-3">
             <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="text">
@@ -16,5 +20,9 @@
             <input class="form-control mx-auto w-auto" name="confirmation" placeholder="Confirm Password" type="text">
         </div>
         <button class="btn btn-primary" type="submit">Register</button>
+        {% if error %}
+        <p style="color: red">{{error}}</p>
+        {% else %}
+        {% endif %}
     </form>
 {% endblock %}
