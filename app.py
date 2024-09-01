@@ -19,7 +19,44 @@ class Profile(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
 
     def __repr__(self):
-        return f"Name : {self.first_name}, Age: {self.age}"
+        return f"Name : {self.username}, Email: {self.email}"
+    
+
+class Itinerary(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('profile.id'), nullable=False)
+    itinerary_id = db.Column(db.Integer, primary_key=True)
+
+    def __repr__(self):
+        return f"User : {self.user_id}, Itinerary: {self.itinerary_id}"
+    
+class Entry(db.Model):
+    entry_id = db.Column(db.Integer, primary_key=True)
+    itinerary_id = db.Column(db.Integer, db.ForeignKey('itinerary.itinerary_id'), nullable=False)
+    start_location = db.Column(db.String(20), nullable=False)
+    end_location = db.Column(db.String(20), nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    mode_of_transport = db.Column(db.String(20), nullable=False)
+    next_entry = db.Column(db.Integer, db.ForeignKey('entry.entry_id'), nullable=True)
+
+    def __repr__(self):
+        return f"Start : {self.start_location}, End: {self.end_location}, Time: {self.time}, Price: {self.price}, Mode of Transport: {self.mode_of_transport}"
+    
+class Reviews(db.Model):
+    itinerary_id = db.Column(db.Integer, db.ForeignKey('itinerary.itinerary_id'),primary_key = True, nullable=False)
+    comment = db.Column(db.String(20), nullable=True)
+
+    def __repr__(self):
+        return f"Comment : {self.comment}"
+
+class Likes(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('profile.id'), primary_key = True, nullable=False)
+    itinerary_id = db.Column(db.Integer, db.ForeignKey('itinerary.itinerary_id'), nullable=False)
+    like_or_dislike = db.Column(db.Boolean, nullable=False)
+
+    def __repr__(self):
+        return f"User : {self.user_id}, Itinerary: {self.itinerary_id}, Like/Dislike: {self.like_or_dislike}"
+
 
 Session(app)
 
